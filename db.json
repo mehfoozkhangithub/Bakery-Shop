@@ -76,6 +76,11 @@
       "email": "mehfoozkhan11@gmail.com",
       "password": "$2a$10$yhGIA5JdVhHEynbXPodSmO6ri6MFLUmmJrLJsxSvYa4msmYK5NZVS",
       "id": 3
+    },
+    {
+      "email": "siraj123@gmail.com",
+      "password": "$2a$10$NGJQCtdeULQwuuLudZPHn..dblVSfFF0UiK5CJbtz/fCmTsQ5Wj9m",
+      "id": 4
     }
   ],
   "cart": [
