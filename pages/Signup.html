@@ -1,44 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="../css/index.css">
-    <link rel="shortcut icon" href="../utils/footer_Logo.svg" type="image/x-icon">
-    <link rel="stylesheet" href="../css/SideBar.css">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+        <link rel="stylesheet" href="../css/index.css">
+        <link rel="shortcut icon" href="../utils/footer_Logo.svg"
+            type="image/x-icon">
+        <link rel="stylesheet" href="../css/SideBar.css">
 
-</head>
+    </head>
 
-<body id="signup_body">
-    <header class="header"></header>
+    <body id="signup_body">
+        <header class="header"></header>
 
-    <div class="login-box">
-        <h2>Create Account</h2>
+        <div class="login-box">
+            <h2>Create Account</h2>
 
+            <form onsubmit="loginForm(event)">
+                <div class="form-group">
+                    <label for="userEmail">Username</label>
+                    <input type="text" id="userEmail"
+                        placeholder="Enter username" required>
+                </div>
 
-        <form onsubmit="loginForm(event)">
-            <div class="form-group">
-                <label for="userEmail">Username</label>
-                <input type="text" id="userEmail" placeholder="Enter username" required>
-            </div>
+                <div class="form-group">
+                    <label for="userPassword">Password</label>
+                    <input type="password" id="userPassword"
+                        placeholder="Enter password" required>
+                </div>
 
-            <div class="form-group">
-                <label for="userPassword">Password</label>
-                <input type="password" id="userPassword" placeholder="Enter password" required>
-            </div>
+                <button type="submit" class="login-btn">signup</button>
+                <p> Already have an account? <a
+                        href="./Login.html">Login</a></p>
 
-            <button type="submit" class="login-btn">signup</button>
-            <p> Already have an account? <a href="./Login.html">Login</a></p>
+            </form>
+        </div>
+        <footer id="footers"></footer>
 
-        </form>
-    </div>
-    <footer id="footers"></footer>
-
-</body>
-<script defer src="../javascript/Signup.js"></script>
-<script type="module">
+    </body>
+    <script defer src="../javascript/Signup.js"></script>
+    <script type="module">
 
     import { Navbar, NavStyle, Footers, goHome, loginFunc, cartFunc, SideBar, typePlaceholder } from '../javascript/Navbar.js'
 
@@ -107,6 +110,12 @@
         }
     });
     // side bar code end
+
+//Day-Night-mode-code
+      const btn = document.getElementById("toggleBtn");
+      btn.addEventListener("click", () => {
+        body.classList.toggle("dark");
+});
 </script>
 
 </html>

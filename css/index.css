@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Playwrite+DK+Loopet:wght@100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Playwrite+DK+Loopet:wght@100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
 :root {
   --sidebar-width: 300px;
@@ -22,7 +22,7 @@
   padding: 0;
   box-sizing: border-box;
   text-transform: capitalize;
-  font-family: 'Roboto Mono', monospace;
+  font-family: "Roboto Mono", monospace;
   font-optical-sizing: auto;
   font-style: normal;
   font-weight: 700;
@@ -119,7 +119,7 @@
 
 /* Shimmer effect */
 .skeleton::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -150px;
@@ -228,7 +228,8 @@
 .signup-container p {
   text-align: center;
   margin-top: 15px;
-  font-size: 14px;
+  font-size: 15px;
+  color: #000;
 }
 
 .signup-container a {
@@ -245,14 +246,15 @@
 .cartDisplay {
   position: absolute;
   background: greenyellow;
-  padding: 15px;
-  line-height: 6px;
+  padding: 11px;
+  line-height: 7px;
   height: fit-content;
   width: fit-content;
   border-radius: 50%;
-  right: -15px;
-  top: 23px;
+  right: -10px;
+  top: 21px;
   color: #000;
+  font-weight: 700;
   text-align: center;
   opacity: 0;
   display: none;
@@ -268,6 +270,15 @@
 }
 
 /* login start  */
+
+#email_message,
+#pass_message,
+#age_message,
+#gender_message,
+#radio_message {
+  color: red;
+}
+
 .login-box {
   background-color: #fff;
   padding: 30px 50px;
@@ -289,11 +300,30 @@
   margin-bottom: 20px;
 }
 
+.gender {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+#radiobtn1,
+#radiobtn {
+  cursor: grab;
+}
+
+.gender_parent {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  letter-spacing: 3px;
+}
+
 .form-group label {
-  margin-bottom: 6px;
+  cursor: text;
+  margin-bottom: 7px;
   font-size: 19px;
-  font-weight: 600;
-  color: #333;
+  font-weight: 700;
+  color: #444;
 }
 
 .form-group input {
@@ -310,15 +340,15 @@
 }
 
 .login-btn {
-  padding: 12px;
-  width: 200px;
+  padding: 11px;
   margin: auto;
   width: 100%;
   background-color: #4caf50;
   color: #fff;
-  font-size: 19px;
+  font-size: 17px;
+  font-weight: 700;
   border: none;
-  border-radius: 6px;
+  border-radius: 7px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
@@ -330,17 +360,20 @@
 .login-box p {
   text-align: center;
   margin-top: 15px;
-  font-size: 17px;
+  font-size: 15px;
+  color: #000;
 }
 
 .login-box p a {
   color: #4caf50;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .login-box p a:hover {
   text-decoration: underline;
 }
+
 /* login end */
 
 /* table start  */
@@ -485,7 +518,7 @@ html {
   opacity: 1;
 }
 .to-top::after {
-  content: 'Back to Top';
+  content: "Back to Top";
   position: absolute;
   bottom: 60px;
   right: -8px;
@@ -525,7 +558,9 @@ body {
   transition: background 0.3s, color 0.3s;
 }
 
-body.dark {
+body.dark,
+#login_body.dark,
+#signup_body.dark {
   background: #333;
   color: #fff;
 }
@@ -597,7 +632,7 @@ body.dark .toggleBtn strong:nth-child(2) {
 }
 
 .cards-imgs::scroll-marker {
-  content: '';
+  content: "";
   height: 1em;
   width: 1em;
   background-color: gray;
@@ -613,8 +648,8 @@ body.dark .toggleBtn strong:nth-child(2) {
 }
 .containers::scroll-button(right),
 .containers::scroll-button(left) {
-  content: '\f0da'; /* Unicode for fa-location-arrow */
-  font-family: 'Font Awesome 6 Free';
+  content: "\f0da"; /* Unicode for fa-location-arrow */
+  font-family: "Font Awesome 6 Free";
   font-weight: 900; /* required for solid icons */
   font-size: 22px;
   border: none;
@@ -634,7 +669,7 @@ body.dark .toggleBtn strong:nth-child(2) {
 .containers::scroll-button(left) {
   translate: 50%;
   position-area: left center;
-  content: '\f0d9'; /* Unicode for fa-location-arrow */
+  content: "\f0d9"; /* Unicode for fa-location-arrow */
 }
 
 .containers::scroll-button(right):disabled,
@@ -650,4 +685,48 @@ body.dark .toggleBtn strong:nth-child(2) {
   height: inherit;
   aspect-ratio: 3 /4;
   object-fit: cover;
+}
+
+/* Modal background */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(var(--blur-amount));
+}
+
+/* Modal box */
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  width: 90%;
+  border-radius: 10px;
+  position: relative;
+  top: 50px;
+  left: 80px;
+}
+
+.modalImage {
+  width: 50%;
+  height: 400px;
+  margin: auto;
+  margin-bottom: 20px;
+  display: block;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+/* Close button */
+.close {
+  position: absolute;
+  right: 13px;
+  top: 3px;
+  font-size: 30px;
+  cursor: pointer;
 }

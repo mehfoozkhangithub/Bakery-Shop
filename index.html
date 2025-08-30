@@ -1,32 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/index.css">
-    <link rel="stylesheet" href="./css/SideBar.css">
-    <link rel="shortcut icon" href="./utils/footer_Logo.svg" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <title>home page</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./css/index.css">
+        <link rel="stylesheet" href="./css/SideBar.css">
+        <link rel="shortcut icon" href="./utils/footer_Logo.svg"
+            type="image/x-icon">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <title>home page</title>
+    </head>
 
-<body id="index_body" onload="paginationFetch()">
+    <body id="index_body" onload="paginationFetch()">
 
-    <!-- Scroll_arrow -->
-    <a href="#" class="to-top">
-        <i class="fas fa-chevron-up"></i>
-    </a>
-    <header class="header"></header>
+        <!-- Scroll_arrow -->
+        <a href="#" class="to-top">
+            <i class="fas fa-chevron-up"></i>
+        </a>
+        <header class="header"></header>
 
-    <div id="pagination"></div>
+        <div id="pagination"></div>
 
-    <div id="container"></div>
+        <div id="container"></div>
 
-    <footer id="footers"></footer>
-</body>
-<script src="./javascript/index.js"></script>
-<script type="module">
+        <footer id="footers"></footer>
+    </body>
+    <script src="./javascript/index.js"></script>
+    <script type="module">
 
     import { Navbar, NavStyle, Footers, goHome, loginFunc, cartFunc, SideBar, typePlaceholder, setActiveNav } from './javascript/Navbar.js';
 
@@ -96,12 +98,11 @@
     });
     // side bar code end
 
-
-    //Day-Night-mode-code
-    const btn = document.getElementById("toggleBtn");
-    btn.addEventListener("click", () => {
+//Day-Night-mode-code
+      const btn = document.getElementById("toggleBtn");
+      btn.addEventListener("click", () => {
         body.classList.toggle("dark");
-    });
+});
 
     //Scroll-Arrow-code
 

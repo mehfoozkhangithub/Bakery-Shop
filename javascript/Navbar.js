@@ -1,15 +1,23 @@
-const profileImg = new URL('../utils/bearded_man-removebg-preview.png', import.meta.url).href;
-const searchImg = new URL('../utils/Search-removebg-preview.svg', import.meta.url).href;
+const profileImg = new URL(
+  "../utils/bearded_man-removebg-preview.png",
+  import.meta.url
+).href;
+const searchImg = new URL(
+  "../utils/Search-removebg-preview.svg",
+  import.meta.url
+).href;
 
-const footer_svg_logo = new URL('../utils/footer_Logo.svg', import.meta.url).href;
-const facebook_logo = new URL('../utils/facebook-logo.png', import.meta.url).href;
-const github_logo = new URL('../utils/github-logo.png', import.meta.url).href;
-const google_logo = new URL('../utils/google.png', import.meta.url).href;
-const youtube_logo = new URL('../utils/youtube.png', import.meta.url).href;
-const linkdin_logo = new URL('../utils/linkdin.png', import.meta.url).href;
+const footer_svg_logo = new URL("../utils/footer_Logo.svg", import.meta.url)
+  .href;
+const facebook_logo = new URL("../utils/facebook-logo.png", import.meta.url)
+  .href;
+const github_logo = new URL("../utils/github-logo.png", import.meta.url).href;
+const google_logo = new URL("../utils/google.png", import.meta.url).href;
+const youtube_logo = new URL("../utils/youtube.png", import.meta.url).href;
+const linkdin_logo = new URL("../utils/linkdin.png", import.meta.url).href;
 
 export const Navbar = () => {
-    return `
+  return `
     <nav>
         <p class="logo_nav" >
             <svg  class="sideBar" id="openSidebar" aria-expanded="false" aria-controls="sidebar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="restaurant">
@@ -44,11 +52,11 @@ export const Navbar = () => {
             <strong>☀️</strong>
         </div>
     </nav>
-    `
-}
+    `;
+};
 
 export const Footers = () => {
-    return `
+  return `
      <section class="footer">
         <section class="footer_logos">
             <img src="${footer_svg_logo}" alt="footer-logo">
@@ -64,12 +72,11 @@ export const Footers = () => {
             <img src="${linkdin_logo}" alt="linkdin">
         </section>
     </section>
-`
-}
-
+`;
+};
 
 export const NavStyle = () => {
-    return `
+  return `
     .header,#footers{
         width:100%;
     }
@@ -178,12 +185,12 @@ export const NavStyle = () => {
         border-radius: 10px;
         }
 
-        `
-}
-//  side-bar functionality start 
+        `;
+};
+//  side-bar functionality start
 
 export const SideBar = () => {
-    return `
+  return `
     
      <!-- The overlay that blurs the background when active -->
     <div class="overlay" id="overlay" aria-hidden="true"></div>
@@ -200,87 +207,86 @@ export const SideBar = () => {
         <a href="#"><span>📞</span> Contact</a>
     </section>
     
-    `
-}
+    `;
+};
 //  side-bar functionality end
 
 function getBasePath(path) {
-    // remove "index.html" if it exists anywhere
-    path = path.replace("index.html", "");
+  // remove "index.html" if it exists anywhere
+  path = path.replace("index.html", "");
 
-    // find where "/pages/" starts
-    let index = path.indexOf("/pages/");
+  // find where "/pages/" starts
+  let index = path.indexOf("/pages/");
 
-    if (index !== -1) {
-        // keep everything before "/pages/"
-        path = path.substring(0, index);
-    }
+  if (index !== -1) {
+    // keep everything before "/pages/"
+    path = path.substring(0, index);
+  }
 
-    // ✅ normalize multiple slashes to a single slash
-    path = path.replace(/\/{2,}/g, "/");
+  // ✅ normalize multiple slashes to a single slash
+  path = path.replace(/\/{2,}/g, "/");
 
-    // ✅ always ensure trailing slash
-    if (!path.endsWith("/")) {
-        path += "/";
-    }
+  // ✅ always ensure trailing slash
+  if (!path.endsWith("/")) {
+    path += "/";
+  }
 
-    return path;
+  return path;
 }
 
 let fullPath = window.location.pathname;
 
 let basePath = getBasePath(fullPath);
 
-
 export const loginFunc = () => {
-    window.location.pathname = `${basePath}pages/Login.html`;
-}
+  window.location.pathname = `${basePath}pages/Login.html`;
+};
 
 export const goHome = () => {
-    window.location.pathname = `${basePath}index.html`;
-}
+  window.location.pathname = `${basePath}index.html`;
+};
 
 export const cartFunc = () => {
-    window.location.pathname = `${basePath}pages/Cart.html`;
-}
+  window.location.pathname = `${basePath}pages/Cart.html`;
+};
 
 let text = "🔍  Search For What You Want...";
 let input;
 let i = 0;
 
 export const typePlaceholder = () => {
-    input = document.querySelector('#search');
-    if (!input) return;
-    if (i <= text.length) {
-        input.setAttribute("placeholder", text.substring(0, i));
-        i++;
-        setTimeout(typePlaceholder, 100);
-    } else {
-        i = 0;
-        setTimeout(typePlaceholder, 1100);
-    }
+  input = document.querySelector("#search");
+  if (!input) return;
+  if (i <= text.length) {
+    input.setAttribute("placeholder", text.substring(0, i));
+    i++;
+    setTimeout(typePlaceholder, 100);
+  } else {
+    i = 0;
+    setTimeout(typePlaceholder, 1100);
+  }
 };
 
 // Highlight Active Nav Item
 export const setActiveNav = () => {
-    // Get current page name (like index.html, Login.html, Cart.html)
-    let currentPage = window.location.pathname.split("/").pop().toLowerCase();
+  // Get current page name (like index.html, Login.html, Cart.html)
+  let currentPage = window.location.pathname.split("/").pop().toLowerCase();
 
-    // Select all nav links
-    const navItems = document.querySelectorAll(".rout_page_name .nav-link");
+  // Select all nav links
+  const navItems = document.querySelectorAll(".rout_page_name .nav-link");
 
-    navItems.forEach((item) => {
-        // reset
-        item.classList.remove("active");
+  navItems.forEach((item) => {
+    // reset
+    item.classList.remove("active");
 
-        // Match based on text or condition
-        if (
-            (currentPage === "index.html" && item.classList.contains("homePage")) ||
-            (currentPage === "login.html" && item.classList.contains("loginFunc")) ||
-            (currentPage === "cart.html" && item.classList.contains("cartFunc")) ||
-            (currentPage === "about.html" && item.classList.contains("about"))
-        ) {
-            item.classList.add("active");
-        }
-    });
-}
+    // Match based on text or condition
+    if (
+      (currentPage === "index.html" && item.classList.contains("homePage")) ||
+      (currentPage === "login.html" && item.classList.contains("loginFunc")) ||
+      (currentPage === "cart.html" && item.classList.contains("cartFunc")) ||
+      (currentPage === "about.html" && item.classList.contains("about"))
+    ) {
+      item.classList.add("active");
+    }
+  });
+};

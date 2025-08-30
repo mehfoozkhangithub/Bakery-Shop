@@ -1,32 +1,32 @@
 const apiProducts = `http://localhost:3000/product`;
 const apiCart = `http://localhost:3000/cart`;
 
-const token = sessionStorage.getItem('token');
+const token = sessionStorage.getItem("token");
 let path = window.location.pathname.split("/").pop();
 
-console.log('🚀 ~ path:', path);
+console.log("🚀 ~ path:", path);
 
-const container = document.querySelector('#container');
+const container = document.querySelector("#container");
 
 let allProducts;
 let cartLengths;
 
 setTimeout(() => {
-    let cartDisplay = document.querySelector('.cartDisplay');
+  let cartDisplay = document.querySelector(".cartDisplay");
 
-    if (path == `index.html`) {
-        cartDisplay.style.display = 'block';
-        cartDisplay.style.opacity = 1;
-    }
-}, 100)
+  if (path == `index.html`) {
+    cartDisplay.style.display = "block";
+    cartDisplay.style.opacity = 1;
+  }
+}, 100);
 
 // Show skeleton placeholders
 const showSkeleton = (count = 6) => {
-    container.innerHTML = ''; // clear container
-    for (let i = 0; i < count; i++) {
-        const skeletonCard = document.createElement('div');
-        skeletonCard.classList.add('card_div');
-        skeletonCard.innerHTML = `
+  container.innerHTML = ""; // clear container
+  for (let i = 0; i < count; i++) {
+    const skeletonCard = document.createElement("div");
+    skeletonCard.classList.add("card_div");
+    skeletonCard.innerHTML = `
             <div class="skeleton skeleton-image"></div>
             <div class="info">
                 <div class="skeleton skeleton-text short"></div>
@@ -37,34 +37,33 @@ const showSkeleton = (count = 6) => {
                 <div class="skeleton skeleton-text long"></div>
             </div>
         `;
-        container.appendChild(skeletonCard);
-    }
+    container.appendChild(skeletonCard);
+  }
 };
 
 const renderTheUI = (value) => {
-    //  here i am creating the div inside that i am just adding the img
-    const prevContainer = document.querySelector('.containers');
+  //  here i am creating the div inside that i am just adding the img
+  const prevContainer = document.querySelector(".containers");
 
+  const carouselContainer = document.createElement("div");
+  container.innerHTML = ""; // Remove skeletons
 
-    const carouselContainer = document.createElement('div');
-    container.innerHTML = ''; // Remove skeletons
+  //  here i am doing if i have the container then i will delete the previous one and append the new one....
 
-    //  here i am doing if i have the container then i will delete the previous one and append the new one....
+  if (prevContainer) prevContainer.remove();
 
-    if (prevContainer) prevContainer.remove();
+  carouselContainer.classList.add("containers");
+  carouselContainer.id = "carousel";
+  // ✅ append containers only ONCE
+  // document.body.prepend(carouselContainer);
+  document.body.insertBefore(carouselContainer, container);
 
-    carouselContainer.classList.add('containers');
-    carouselContainer.id = "carousel";
-    // ✅ append containers only ONCE
-    // document.body.prepend(carouselContainer);
-    document.body.insertBefore(carouselContainer, container);
-
-    value.forEach((el) => {
-        console.log('🚀 ~ el:', el);
-        const card = document.createElement('div');
-        const img = document.createElement('img');
-        card.classList.add('card_div');
-        card.innerHTML = `
+  value.forEach((el) => {
+    console.log("🚀 ~ el:", el);
+    const card = document.createElement("div");
+    const img = document.createElement("img");
+    card.classList.add("card_div");
+    card.innerHTML = `
             <img class="image" src=${el.image} />
             <div class="info" >
                 <h3 class="id">id : ${el.id}</h3>
@@ -77,75 +76,75 @@ const renderTheUI = (value) => {
             </div>
         `;
 
-        img.src = el.image;
-        img.alt = `img-${el.id}`;
-        img.classList.add('cards-imgs');
-        carouselContainer.append(img);
+    card.addEventListener("click", () => detailsPage(el.id));
 
-        container.append(card);
-    });
+    img.src = el.image;
+    img.alt = `img-${el.id}`;
+    img.classList.add("cards-imgs");
+    carouselContainer.append(img);
+
+    container.append(card);
+  });
 };
 
 const addToCart = async (id) => {
+  let product = allProducts.find((el) => el.id === id);
 
-    let product = allProducts.find((el) => el.id === id);
+  try {
+    // check if product already exists in cart
+    let res = await fetch(`${apiCart}?id=${id}`);
+    let data = await res.json();
 
-    try {
-        // check if product already exists in cart
-        let res = await fetch(`${apiCart}?id=${id}`);
-        let data = await res.json();
+    if (data.length > 0) {
+      // already in cart → increment count
+      let existing = data[0];
+      await fetch(`${apiCart}/${existing.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ count: existing.count + 1 }),
+      });
+      alert("Quantity updated ✔");
+    } else {
+      // not in cart → add new with count = 1
+      await fetch(apiCart, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ ...product, count: 1 }),
+      });
 
-        if (data.length > 0) {
-            // already in cart → increment count
-            let existing = data[0];
-            await fetch(`${apiCart}/${existing.id}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
-                body: JSON.stringify({ count: existing.count + 1 }),
-            });
-            alert("Quantity updated ✔");
-        } else {
-
-            // not in cart → add new with count = 1
-            await fetch(apiCart, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
-                body: JSON.stringify({ ...product, count: 1 }),
-            });
-
-            alert("Added to cart ✔");
-        }
-    } catch (error) {
-        console.log("🚀 ~ error:", error);
+      alert("Added to cart ✔");
     }
+  } catch (error) {
+    console.log("🚀 ~ error:", error);
+  }
 };
 
 const searchFunc = async () => {
-    const query = document.querySelector('#search').value.trim().toLowerCase();
-    if (!query) return;
+  const query = document.querySelector("#search").value.trim().toLowerCase();
+  if (!query) return;
 
-    try {
-        let [searchFetch] = await Promise.all([fetch(apiProducts)]);
+  try {
+    let [searchFetch] = await Promise.all([fetch(apiProducts)]);
 
-        const [data1] = await Promise.all([searchFetch.json()]);
+    const [data1] = await Promise.all([searchFetch.json()]);
 
-        const filtered = await data1.filter(
-            (item) =>
-                item.title.toLowerCase().includes(query) ||
-                item.category.toLowerCase().includes(query) ||
-                item.description.toLowerCase().includes(query)
-        );
-        renderTheUI(filtered);
-        document.querySelector('#search').value = ''
-    } catch (err) {
-        console.error('Search failed:', err);
-    }
+    const filtered = await data1.filter(
+      (item) =>
+        item.title.toLowerCase().includes(query) ||
+        item.category.toLowerCase().includes(query) ||
+        item.description.toLowerCase().includes(query)
+    );
+    renderTheUI(filtered);
+    document.querySelector("#search").value = "";
+  } catch (err) {
+    console.error("Search failed:", err);
+  }
 };
 
 let pages = 1;
@@ -160,100 +159,140 @@ pagiDiv.innerHTML = `
 <button class="btns" id="decrementBtn">-</button>
 <span id="countPage">${pages}</span>
 <button class="btns" id="incrementBtn">+</button>
-`
-
+`;
 
 const paginationFetch = async (limit = pageLimits, page = pages) => {
-    let paginationApi = `http://localhost:3000/product?_limit=${limit}&_page=${page}`;
+  let paginationApi = `http://localhost:3000/product?_limit=${limit}&_page=${page}`;
 
-    showSkeleton(6); // Show skeletons while loading
-    let cartDisplay = document.querySelector(".cartDisplay");
+  showSkeleton(6); // Show skeletons while loading
+  let cartDisplay = document.querySelector(".cartDisplay");
 
-    try {
-        const [res1, res2] = await Promise.all([
-            fetch(paginationApi),
-            fetch(apiCart)
-        ]);
-        // we have to apply loader into this....
-        // console.log('🚀 ~ res1:', res1.ok);
-        const [data1, data2] = await Promise.all([res1.json(), res2.json()]);
+  try {
+    const [res1, res2] = await Promise.all([
+      fetch(paginationApi),
+      fetch(apiCart),
+    ]);
+    // we have to apply loader into this....
+    // console.log('🚀 ~ res1:', res1.ok);
+    const [data1, data2] = await Promise.all([res1.json(), res2.json()]);
 
-        let data = await data1;
-        console.log('🚀 ~ data:', data);
+    let data = await data1;
+    console.log("🚀 ~ data:", data);
 
-        cartLengths = data2.length;
-        if (cartLengths) {
-            cartDisplay.style.display = 'block';
-            cartDisplay.textContent = cartLengths;
-        }
-        else {
-            cartDisplay.style.display = 'none';
-            cartDisplay.style.opacity = 0;
-        }
-        // here we have the value of total and just set the total value 
-
-        lengthsOfAPI = +res1.headers.get('x-total-count');
-
-        lengthsOfAPI = Math.ceil(lengthsOfAPI / pageLimits);
-
-        allProducts = data;
-        renderTheUI(allProducts);
-        carosule();
-    } catch (error) {
-        console.error("Error fetching products:", error);
+    cartLengths = data2.length;
+    if (cartLengths) {
+      cartDisplay.style.display = "block";
+      cartDisplay.textContent = cartLengths;
+    } else {
+      cartDisplay.style.display = "none";
+      cartDisplay.style.opacity = 0;
     }
-}
+    // here we have the value of total and just set the total value
+
+    lengthsOfAPI = +res1.headers.get("x-total-count");
+
+    lengthsOfAPI = Math.ceil(lengthsOfAPI / pageLimits);
+
+    allProducts = data;
+    renderTheUI(allProducts);
+    carosule();
+  } catch (error) {
+    console.error("Error fetching products:", error);
+  }
+};
 
 const countPages = document.querySelector("#countPage");
-document.querySelector('#incrementBtn').addEventListener("click", () => {
-    if (pages >= lengthsOfAPI) {
-        document.querySelector('#incrementBtn').disabled = true;
-        return;
-    } else if (pages > 1) {
-        document.querySelector('#decrementBtn').disabled = false;
-    }
-    pages++;
-    countPages.innerText = pages;
-    paginationFetch(pageLimits, pages);
-    carosule()
-})
-document.querySelector('#decrementBtn').addEventListener("click", () => {
-    if (pages <= 1) {
-        document.querySelector('#decrementBtn').disabled = true;
-        return;
-    } else if (pages < lengthsOfAPI) {
-        document.querySelector('#incrementBtn').disabled = false;
-    }
-    pages--
-    countPages.innerText = pages;
-    paginationFetch(pageLimits, pages);
-    carosule()
-})
+document.querySelector("#incrementBtn").addEventListener("click", () => {
+  if (pages >= lengthsOfAPI) {
+    document.querySelector("#incrementBtn").disabled = true;
+    return;
+  } else if (pages > 1) {
+    document.querySelector("#decrementBtn").disabled = false;
+  }
+  pages++;
+  countPages.innerText = pages;
+  paginationFetch(pageLimits, pages);
+  carosule();
+});
+document.querySelector("#decrementBtn").addEventListener("click", () => {
+  if (pages <= 1) {
+    document.querySelector("#decrementBtn").disabled = true;
+    return;
+  } else if (pages < lengthsOfAPI) {
+    document.querySelector("#incrementBtn").disabled = false;
+  }
+  pages--;
+  countPages.innerText = pages;
+  paginationFetch(pageLimits, pages);
+  carosule();
+});
 
 const carosule = () => {
-    // this is carousel code 
-    setTimeout(() => {
-        const carousel = document.getElementById("carousel");
-        const cards = document.querySelectorAll(".cards-imgs");
-        console.log('🚀 ~ cards:', cards);
-        let index = 0;
-        function autoScroll() {
-            index++;
-            if (index >= cards.length) index = 0;
-            carousel.scrollTo({
-                left: cards[index].offsetLeft,
-                behavior: "smooth"
-            });
-        }
+  // this is carousel code
+  setTimeout(() => {
+    const carousel = document.getElementById("carousel");
+    const cards = document.querySelectorAll(".cards-imgs");
+    console.log("🚀 ~ cards:", cards);
+    let index = 0;
+    function autoScroll() {
+      index++;
+      if (index >= cards.length) index = 0;
+      carousel.scrollTo({
+        left: cards[index].offsetLeft,
+        behavior: "smooth",
+      });
+    }
 
-        // Auto-scroll every 3s
-        let interval = setInterval(autoScroll, 3000);
+    // Auto-scroll every 3s
+    let interval = setInterval(autoScroll, 3000);
 
-        // Pause on hover
-        carousel.addEventListener("mouseenter", () => clearInterval(interval));
-        carousel.addEventListener("mouseleave", () => {
-            interval = setInterval(autoScroll, 3000);
-        });
-    }, 1000);
-}
+    // Pause on hover
+    carousel.addEventListener("mouseenter", () => clearInterval(interval));
+    carousel.addEventListener("mouseleave", () => {
+      interval = setInterval(autoScroll, 3000);
+    });
+  }, 1000);
+};
 
+// PopUp Modal
+
+const detailsPage = async (id) => {
+  try {
+    // get product details
+    let res = await fetch(`${apiProducts}/${id}`);
+    let product = await res.json();
+
+    // make modal div
+    const modal = document.createElement("div");
+    modal.classList.add("modal");
+    modal.style.display = "block"; // show it
+
+    // modal content
+    modal.innerHTML = `
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <img src="${product.image}" alt="Product Image" class="modalImage">
+        <h2>${product.title}</h2>
+        <p><b>Category:</b> ${product.category}</p>
+        <p><b>Description:</b> ${product.description}</p>
+        <p><b>Price:</b> ₹${product.price}</p>
+        <p><b>Rating:</b> ${product.rating.rate} Star</p>
+      </div>
+    `;
+
+    // add modal to body
+    document.body.appendChild(modal);
+
+    // close when clicking X
+    modal.querySelector(".close").onclick = () => modal.remove();
+
+    // close when clicking outside the box
+    modal.onclick = (event) => {
+      if (event.target === modal) {
+        modal.remove();
+      }
+    };
+  } catch (error) {
+    console.log("Error: ", error);
+  }
+};

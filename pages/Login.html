@@ -1,34 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="shortcut icon" href="../utils/footer_Logo.svg" type="image/x-icon">
-    <link rel="stylesheet" href="../css/index.css">
-    <link rel="stylesheet" href="../css/SideBar.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="shortcut icon" href="../utils/footer_Logo.svg"
+            type="image/x-icon">
+        <link rel="stylesheet" href="../css/index.css">
+        <link rel="stylesheet" href="../css/SideBar.css">
+    </head>
 
-<bodyn id="login_body">
-    <header class="header"></header>
+    <body id="login_body">
+        <header class="header"></header>
 
-    <div class="signup-container">
-        <h2>Login</h2>
+        <div class="signup-container">
+            <h2>Login</h2>
 
-        <form action="#" onsubmit="loginForm(event)">
-            <!-- <input name="name" type="text" placeholder="Full Name" required /> -->
-            <input name="email" type="email" placeholder="Email Address" required id="userEmail" />
-            <input name="password" type=" password" placeholder="Password" required id="userPassword" />
-            <!-- <input name="confirm password" type="password" placeholder="Confirm Password" required /> -->
-            <button type="submit">login</button>
-        </form>
-        <p>Don't have an account? <a href="./Signup.html">sign up</a></p>
-    </div>
-    <footer id="footers"></footer>
+            <form onsubmit="loginForm(event)">
 
-</bodyn>
-<script type="module">
+                <div class="form-group">
+                    <label for="username">Email*</label>
+                    <input type="text" id="email"
+                        placeholder="Enter Email">
+                    <span id="email_message"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password*</label>
+                    <input type="password" id="pass"
+                        placeholder="Enter password">
+                    <span id="pass_message"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="age">Age*</label>
+                    <input type="number" placeholder="Enter Age" id="age">
+                    <span id="age_message"></span>
+                </div>
+
+                <div class="form-group">
+                    <div class="gender_parent">
+                        <label for="radiobtn">Gender*: </label>
+                        <div class="gender">
+                            <label for="radiobtn">Male</label>
+                            <input type="radio" name="content" value="Male"
+                                id="radiobtn">
+                        </div>
+                        <div class="gender">
+                            <label for="radiobtn">Female</label>
+                            <input type="radio" name="content" value="Female"
+                                id="radiobtn1">
+                        </div>
+                    </div>
+                    <span id="gender_message"></span>
+                </div>
+                <span id="radio_message"></span>
+
+                <button type="submit">login</button>
+            </form>
+            <p>Don't have an account? <a href="./Signup.html">sign up</a></p>
+        </div>
+        <footer id="footers"></footer>
+
+    </body>
+    <script type="module">
 
     import { Navbar, NavStyle, Footers, goHome, loginFunc, cartFunc, SideBar, typePlaceholder, setActiveNav } from '../javascript/Navbar.js'
 
@@ -121,6 +157,6 @@
         setActiveNav();
     }, 100)
 </script>
-<script defer src="../javascript/Login.js"></script>
+    <script defer src="../javascript/Login.js"></script>
 
 </html>
