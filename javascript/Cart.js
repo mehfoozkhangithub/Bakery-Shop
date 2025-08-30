@@ -4,6 +4,10 @@ let cartLengths;
 
 let cartApi;
 
+let currentPage = 1;
+const itemsPerPage = 6;
+let cartData = [];
+
 let token = sessionStorage.getItem("token");
 
 let path = window.location.pathname.split("/").pop();
@@ -23,18 +27,26 @@ setTimeout(() => {
 }, 100);
 
 const cardFetch = async () => {
-  showSkeleton(cartLengths);
-  let cartDisplay = document.querySelector(".cartDisplay");
+  showSkeleton(itemsPerPage);
 
-  cartApi = `http://localhost:3000/cart`;
   try {
-    let res = await fetch(cartApi);
+    let res = await fetch("http://localhost:3000/cart");
     let data = await res.json();
+
     cartLengths = data.length;
+    cartData = data;
+
+    // 👉 just render only current page items
+    let start = (currentPage - 1) * itemsPerPage;
+    let end = start + itemsPerPage;
+    let paginatedData = data.slice(start, end);
+
     if (cartLengths) {
-      cartDisplay.textContent = cartLengths;
+      document.querySelector(".cartDisplay").textContent = cartLengths;
     }
-    cardRenderUI(data);
+
+    cardRenderUI(paginatedData);
+    renderPaginatedUI();
   } catch (error) {
     console.log("🚀 ~ error:", error);
   }
@@ -82,9 +94,7 @@ const cardRenderUI = (value) => {
                </div>
             </div>
         `;
-
     card.addEventListener("click", () => detailsPage(el.id));
-
     container.appendChild(card);
   });
 };
@@ -163,3 +173,40 @@ const detailsPage = async (id) => {
     console.log("Error: ", error);
   }
 };
+
+// Pagination
+
+function renderPaginatedUI() {
+  container.innerHTML = "";
+  let start = (currentPage - 1) * itemsPerPage;
+  let end = start + itemsPerPage;
+  let pageItems = cartData.slice(start, end);
+  cardRenderUI(pageItems);
+  renderPaginationControls();
+}
+
+function renderPaginationControls() {
+  let oldControls = document.querySelector(".pagination-controls");
+  if (oldControls) oldControls.remove();
+  const controls = document.createElement("div");
+  controls.className = "pagination-controls";
+  controls.innerHTML = `
+    <button ${currentPage === 1 ? "disabled" : ""} id="prevBtn">Prev</button>
+    <span>Page ${currentPage}</span>
+    <button ${
+      currentPage === Math.ceil(cartData.length / itemsPerPage)
+        ? "disabled"
+        : ""
+    } id="nextBtn">Next</button>
+  `;
+  const footer = document.getElementById("footers");
+  footer.parentNode.insertBefore(controls, footer);
+  document.getElementById("prevBtn").onclick = () => {
+    currentPage--;
+    renderPaginatedUI();
+  };
+  document.getElementById("nextBtn").onclick = () => {
+    currentPage++;
+    renderPaginatedUI();
+  };
+}

@@ -96,7 +96,7 @@ const renderCheckout = (value) => {
 
     const row = document.createElement("tr");
     row.innerHTML = `
-            <td>${el.title}</td>
+            <td><img src="${el.image}" class="checkoutImage"/> ${el.title}</td>
             <td>₹${el.price}</td>
             <td>
                 <button class="btns neg" onclick="decrementCount(${el.id}, ${
@@ -137,19 +137,6 @@ const renderCheckout = (value) => {
         <p>₹${els.price}</p>               
         `;
 
-    // Pagination
-
-    const pagiDiv = document.createElement("div");
-    pagiDiv.innerHTML = `
-  <button class="btns" id="decrementBtn">Prev</button>
-<span id="countPage">${pages} of ${lengthsOfAPI}</span>
-<button class="btns" id="incrementBtn">Next</button>
-  `;
-
-    amountDiv_main.prepend(pagiDiv);
-
-    // Pagination End
-
     amountDiv_parent_1.append(amountDiv_child_1);
   });
   const amountDiv_parent_2 = document.createElement("section");
@@ -167,7 +154,48 @@ const renderCheckout = (value) => {
 
   //  here i have to crate this ui -> https://pixso.net/tips/shopping-cart-design/
 
+  // Pagination
+
+  const pagiDiv = document.createElement("div");
+  pagiDiv.innerHTML = `
+  <button class="btns" id="decrementBtn">Prev</button>
+<span id="countPage">${pages} of ${lengthsOfAPI}</span>
+<button class="btns" id="incrementBtn">Next</button>
+  `;
+
+  amountDiv_main.prepend(pagiDiv);
+
+  // Pagination End
+
   container.append(table, amountDiv_main);
+
+  // Pagination Button Function
+
+  const countPages = document.querySelector("#countPage");
+  document.querySelector("#incrementBtn").addEventListener("click", () => {
+    if (pages >= lengthsOfAPI) {
+      document.querySelector("#incrementBtn").disabled = true;
+      return;
+    } else if (pages > 1) {
+      document.querySelector("#decrementBtn").disabled = false;
+    }
+    pages++;
+    countPages.innerText = pages;
+    paginationFetch(pageLimits, pages);
+  });
+  document.querySelector("#decrementBtn").addEventListener("click", () => {
+    if (pages <= 1) {
+      document.querySelector("#decrementBtn").disabled = true;
+      return;
+    } else if (pages < lengthsOfAPI) {
+      document.querySelector("#incrementBtn").disabled = false;
+    }
+    pages--;
+    countPages.innerText = pages;
+    paginationFetch(pageLimits, pages);
+  });
+
+  // Pagination Button Function End
 };
 
 const incrementCount = async (id, counts) => {

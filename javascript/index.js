@@ -148,7 +148,7 @@ const searchFunc = async () => {
 };
 
 let pages = 1;
-let pageLimits = 10;
+let pageLimits = 9;
 let lengthsOfAPI;
 let start;
 let end;

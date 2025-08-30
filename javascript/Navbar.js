@@ -250,23 +250,6 @@ export const cartFunc = () => {
   window.location.pathname = `${basePath}pages/Cart.html`;
 };
 
-let text = "🔍  Search For What You Want...";
-let input;
-let i = 0;
-
-export const typePlaceholder = () => {
-  input = document.querySelector("#search");
-  if (!input) return;
-  if (i <= text.length) {
-    input.setAttribute("placeholder", text.substring(0, i));
-    i++;
-    setTimeout(typePlaceholder, 100);
-  } else {
-    i = 0;
-    setTimeout(typePlaceholder, 1100);
-  }
-};
-
 // Highlight Active Nav Item
 export const setActiveNav = () => {
   // Get current page name (like index.html, Login.html, Cart.html)
@@ -290,3 +273,87 @@ export const setActiveNav = () => {
     }
   });
 };
+
+let text = "🔍  Search For What You Want...";
+let input;
+let i = 0;
+
+export const typePlaceholder = () => {
+  input = document.querySelector("#search");
+  if (!input) return;
+  if (i <= text.length) {
+    input.setAttribute("placeholder", text.substring(0, i));
+    i++;
+    setTimeout(typePlaceholder, 100);
+  } else {
+    i = 0;
+    setTimeout(typePlaceholder, 1100);
+  }
+};
+
+// Blink And Cursor In Placeholder
+
+// function updatePlaceholder() {
+//   if (!input) return;
+//   // Show currently typed letters plus blinking cursor
+//   let displayed = text.substring(0, i);
+//   if (cursorVisible) {
+//     input.setAttribute("placeholder", displayed + "|");
+//   } else {
+//     input.setAttribute("placeholder", displayed + " ");
+//   }
+// }
+
+// function typeAndBlink() {
+//   // Blink the cursor while typing
+//   typing = setInterval(() => {
+//     cursorVisible = !cursorVisible;
+//     updatePlaceholder();
+//   }, 100);
+
+//   function typeChar() {
+//     if (!input) return;
+//     if (i <= text.length) {
+//       updatePlaceholder();
+//       i++;
+//       setTimeout(typeChar, 100);
+//     } else {
+//       clearInterval(typing);
+//       startBlinkAtEnd();
+//     }
+//   }
+//   typeChar();
+// }
+
+// function startBlinkAtEnd() {
+//   interval = setInterval(() => {
+//     cursorVisible = !cursorVisible;
+//     let displayed = text;
+//     if (cursorVisible) {
+//       input.setAttribute("placeholder", displayed + "|");
+//     } else {
+//       input.setAttribute("placeholder", displayed + " ");
+//     }
+//   }, 500);
+
+//   // After a pause, reset typing for infinite loop
+//   setTimeout(() => {
+//     clearInterval(interval);
+//     i = 0;
+//     cursorVisible = true;
+//     typeAndBlink();
+//   }, 2500); // duration of blinking at the end before restarting
+// }
+
+// export const typePlaceholder = () => {
+//   input = document.querySelector("#search");
+//   if (!input) return;
+//   // If running again, clear old intervals
+//   clearInterval(typing);
+//   clearInterval(interval);
+//   i = 0;
+//   cursorVisible = true;
+//   typeAndBlink();
+// };
+
+// PlaceHolder End

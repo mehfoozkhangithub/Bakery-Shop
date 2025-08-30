@@ -378,6 +378,16 @@
 
 /* table start  */
 
+td:first-child {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.checkoutImage {
+  object-fit: cover;
+}
+
 #checkout_body > #container {
   all: unset;
   display: flex;
@@ -473,10 +483,32 @@
   gap: 20px;
 }
 
-#index_body > #pagination > .btns:first-child {
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+#prevBtn,
+#nextBtn {
+  padding: 10px;
+  border-radius: 10px;
+}
+
+#index_body > #pagination > .btns:first-child,
+#decrementBtn,
+#prevBtn {
+  border: none;
+  color: #fff;
   background: red;
 }
-#index_body > #pagination > .btns:last-child {
+#index_body > #pagination > .btns:last-child,
+#incrementBtn,
+#nextBtn {
+  border: none;
+  color: #fff;
   background: green;
 }
 
@@ -692,7 +724,7 @@ body.dark .toggleBtn strong:nth-child(2) {
 .modal {
   display: none;
   position: fixed;
-  z-index: 1000;
+  z-index: 1;
   left: 0;
   top: 0;
   width: 100%;

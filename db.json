@@ -81,8 +81,13 @@
       "email": "hetukp12@gmail.com",
       "password": "$2a$10$U6JceWIuwOWgNcMo5bpEz.ePLump5npbf7P4hQ8Qbnwn8LsEXh0Pu",
       "id": 4,
-      "age": "50",
+      "age": "20",
       "gender": "Male"
+    },
+    {
+      "email": "hetuk663@gmail.com",
+      "password": "$2a$10$6I2QGJap8nqHdY/3B4rubuSgICwkVaeYE0wAGlkDVTLuFukMp4GGi",
+      "id": 5
     }
   ],
   "cart": [
@@ -108,7 +113,7 @@
       "rating": {
         "rate": 4.8
       },
-      "count": 2
+      "count": 1
     },
     {
       "id": 103,
