@@ -162,6 +162,7 @@ const loginForm = async (e) => {
     }
 
     try {
+      let ageApi = "http://localhost:3000/ageValid";
       let ageres = await fetch(ageApi);
       let ageData = await ageres.json();
 

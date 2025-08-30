@@ -4,8 +4,6 @@ const apiCart = `http://localhost:3000/cart`;
 const token = sessionStorage.getItem("token");
 let path = window.location.pathname.split("/").pop();
 
-console.log("🚀 ~ path:", path);
-
 const container = document.querySelector("#container");
 
 let allProducts;
@@ -59,7 +57,6 @@ const renderTheUI = (value) => {
   document.body.insertBefore(carouselContainer, container);
 
   value.forEach((el) => {
-    console.log("🚀 ~ el:", el);
     const card = document.createElement("div");
     const img = document.createElement("img");
     card.classList.add("card_div");
@@ -177,7 +174,6 @@ const paginationFetch = async (limit = pageLimits, page = pages) => {
     const [data1, data2] = await Promise.all([res1.json(), res2.json()]);
 
     let data = await data1;
-    console.log("🚀 ~ data:", data);
 
     cartLengths = data2.length;
     if (cartLengths) {
@@ -232,7 +228,6 @@ const carosule = () => {
   setTimeout(() => {
     const carousel = document.getElementById("carousel");
     const cards = document.querySelectorAll(".cards-imgs");
-    console.log("🚀 ~ cards:", cards);
     let index = 0;
     function autoScroll() {
       index++;
