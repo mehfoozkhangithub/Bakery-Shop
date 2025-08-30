@@ -94,7 +94,7 @@
       "rating": {
         "rate": 4.7
       },
-      "count": 2
+      "count": 5
     },
     {
       "id": 11,
@@ -130,7 +130,7 @@
       "rating": {
         "rate": 2.9
       },
-      "count": 2
+      "count": 3
     },
     {
       "id": 19,
@@ -166,7 +166,7 @@
       "rating": {
         "rate": 1.9
       },
-      "count": 1
+      "count": 2
     },
     {
       "id": 2,
@@ -178,7 +178,7 @@
       "rating": {
         "rate": 4.1
       },
-      "count": 2
+      "count": 4
     },
     {
       "id": 20,
@@ -189,6 +189,42 @@
       "image": "https://cdn.pixabay.com/photo/2020/02/21/22/22/bake-4868916_1280.jpg",
       "rating": {
         "rate": 3.6
+      },
+      "count": 1
+    },
+    {
+      "id": 1,
+      "title": "Macaron Pink",
+      "price": 100,
+      "description": "A balanced diet is a cookie in each hand.",
+      "category": "Cookies",
+      "image": "https://cdn.pixabay.com/photo/2019/11/03/11/25/macaron-4598410_1280.jpg",
+      "rating": {
+        "rate": 3.9
+      },
+      "count": 3
+    },
+    {
+      "id": 5,
+      "title": "Cookie Christmas",
+      "price": 100,
+      "description": "A balanced diet is a cookie in each hand.",
+      "category": "Cookies",
+      "image": "https://cdn.pixabay.com/photo/2016/01/07/10/23/cookie-1125527_1280.jpg",
+      "rating": {
+        "rate": 4.6
+      },
+      "count": 1
+    },
+    {
+      "id": 4,
+      "title": "Sweet Food,",
+      "price": 150,
+      "description": "A balanced diet is a cookie in each hand.",
+      "category": "Cookies",
+      "image": "https://cdn.pixabay.com/photo/2018/05/21/20/55/sweet-3419470_1280.jpg",
+      "rating": {
+        "rate": 2.1
       },
       "count": 1
     }

@@ -83,6 +83,9 @@ const renderCheckout = (value) => {
 
     const table = document.createElement('table');
     table.innerHTML = `
+     <button onclick="deselectFun()" id="deselectBtn">DeSelect</button>
+ <button onclick = "selectFun()" id="selectBtn">Select</button>
+  <button onclick="deleteFun()" id="deletBtn">Delete</button>
         <thead>
             <tr>
                 <th>Item</th>
@@ -103,6 +106,7 @@ const renderCheckout = (value) => {
 
         const row = document.createElement('tr');
         row.innerHTML = `
+         <input class="checkBox" type="checkbox" />
             <td>${el.title}</td>
             <td>₹${el.price}</td>
             <td>
@@ -222,3 +226,59 @@ const deleteToCart = async (id) => {
 
     }
 };
+
+
+// checkout button
+
+function selectFun() {
+    let checkBox = document.querySelectorAll(".checkBox");
+    let checkBoxlen = checkBox.length;
+    for (let i = 0; i < checkBoxlen; i++) {
+        checkBox[i].checked = true;
+    }
+        
+    toggle = true;
+    
+    let selectBtn = document.querySelector("#selectBtn");
+    let deselectBtn = document.querySelector("#deselectBtn");
+    
+    if (selectBtn) selectBtn.style.display = "none";
+    if (deselectBtn) deselectBtn.style.display = "inline-block";
+    
+}
+
+function deselectFun() {
+    if (toggle === true) {
+        let checkBox = document.querySelectorAll(".checkBox");
+        let checkBoxlen = checkBox.length;
+
+        for (let i = 0; i < checkBoxlen; i++) {
+            checkBox[i].checked = false;
+        }
+        let selectBtn = document.querySelector("#selectBtn");
+        let deselectBtn = document.querySelector("#deselectBtn");
+
+        if (selectBtn) selectBtn.style.display = "inline-block";
+        if (deselectBtn) deselectBtn.style.display = "none";
+    }
+    
+}
+
+function deleteFun() {
+    let checkBoxes = document.querySelectorAll(".checkBox");
+    
+    checkBoxes.forEach(function(checkBox) {
+        if (checkBox.checked) {
+            // Remove the parent element of the checkbox
+            // Adjust this as needed depending on your HTML structure
+            checkBox.parentElement.remove();
+        }
+    });
+
+    // Optionally, show the select button again
+    let selectBtn = document.querySelector("#selectBtn");
+    let deselectBtn = document.querySelector("#deselectBtn");
+
+    if (selectBtn) selectBtn.style.display = "inline-block";
+    if (deselectBtn) deselectBtn.style.display = "none";
+}
