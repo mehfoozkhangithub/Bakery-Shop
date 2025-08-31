@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="../css/About.css">
+        <link rel="stylesheet" href="../css/index.css">
+        <link rel="stylesheet" href="../css/SideBar.css">
+    </head>
+    <body>
+        <header class="header"></header>
+
+        <div class="img-bg">
+            <div class=" bg-breadcrumb"
+                style="padding-bottom:500px;background-position:bottom!important;background-image : url(//theobroma.in/cdn/shop/files/aboutpage-header.jpg?v=1615444228 )">
+                <div class="container container-v2">about Us<div
+                        class="title-page"><h1 class="title heading"
+                            style="font-family: 'Overlock'!important;"></h1></div>
+                </div> </div>
+        </div>
+
+        <div class="bg_img-text">
+
+            <div class="container-text">
+                <div class="content-info1">
+                    "Theobroma means 'Food of the Gods' in Greek, befitting our exclusive and indulgent range of offerings that include brownies, cakes, desserts, chocolates, breads, and savouries."
+                </div>
+
+                <div class="content-info1">
+                    "From our humble beginnings in 2004, when the first Theobroma pastry store opened its doors at the iconic Cusrow Baug at Colaba Causeway (Mumbai), we've grown to become a Pan-India chain of patisseries with stores in over 30 cities.From our humble beginnings in 2004, when the first Theobroma pastry store opened its doors at the iconic Cusrow Baug at Colaba Causeway (Mumbai), we've grown to become a Pan-India chain of patisseries with stores in over 30 cities."
+                </div>
+
+                <div class="content-info1">
+                    "Our mission is to spread happiness by serving smiles on a plate, and this journey continues as we open Theobroma patisseries across the country."
+                </div>
+
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="content_1">
+                <img src="../utils/travel-destination.gif"
+                    class="travel-destination">
+                <span>300+</span>
+                <span class="span1">Outlets acroos the globe</span>
+            </div>
+            <div class="content_1">
+                <img src="../utils/Cake.gif" class="Cake_gif">
+                <span>1M+</span>
+                <span class="span1">Cakes Sold Worldwide</span>
+            </div>
+            <div class="content_1">
+
+                <img src="../utils/Bakery-shop.gif" class="shop_gif">
+                <span>3+</span>
+                <span class="span1">Countries we are in</span>
+
+            </div>
+            <div class="content_2">
+                <img src="../utils/cupcake.gif" class="cupcake_gif">
+                <span>1M+</span>
+                <span class="span1">Varieties of products</span>
+
+            </div>
+        </div>
+
+        <footer id="footers"></footer>
+
+    </body>
+    <script type="module">
+        
+            import { Navbar, NavStyle, Footers, goHome, goAbout,loginFunc, cartFunc, SideBar,typePlaceholder, setActiveNav } from '../javascript/Navbar.js';
+
+ document.querySelector('.header').innerHTML = Navbar() +SideBar();
+ 
+    document.querySelector('body').addEventListener('load', typePlaceholder());
+
+    let styleTag = document.createElement("style");
+    styleTag.textContent = NavStyle();
+    document.head.append(styleTag);
+
+    document.querySelector('#footers').innerHTML = Footers();
+
+    document.querySelector('.homePage').addEventListener('click', () => {
+        goHome();
+    })
+    document.querySelector('.loginFunc').addEventListener('click', () => {
+        loginFunc();
+    });
+    document.querySelector('.cartFunc').addEventListener('click', () => {
+        cartFunc();
+    });
+
+    document.querySelector('.aboutPage').addEventListener('click', () => {
+        goAbout();
+    });
+
+    // side bar code start.
+
+    const body = document.body;
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const openBtn = document.getElementById('openSidebar');
+    const closeBtn = document.getElementById('closeSidebar');
+
+    function openSidebar() {
+        body.classList.add('sidebar-open', 'no-scroll');
+        sidebar.setAttribute('aria-hidden', 'false');
+        openBtn.setAttribute('aria-expanded', 'true');
+        // Move focus to the close button for accessibility
+        closeBtn.focus();
+    }
+
+    function closeSidebar() {
+        body.classList.remove('sidebar-open', 'no-scroll');
+        sidebar.setAttribute('aria-hidden', 'true');
+        openBtn.setAttribute('aria-expanded', 'false');
+        // Return focus to the trigger button
+        openBtn.focus();
+    }
+
+    openBtn.addEventListener('click', openSidebar);
+    closeBtn.addEventListener('click', closeSidebar);
+    overlay.addEventListener('click', closeSidebar);
+
+    // Close with Escape
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && body.classList.contains('sidebar-open')) {
+            closeSidebar();
+        }
+    });
+
+    // Optional: close if viewport resized very wide (e.g., moving to desktop layout in your project)
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 1280 && body.classList.contains('sidebar-open')) {
+            closeSidebar();
+        }
+    });
+
+    // side bar code end
+
+//Day-Night-mode-code
+      const btn = document.getElementById("toggleBtn");
+      btn.addEventListener("click", () => {
+        body.classList.toggle("dark");
+});
+
+    setTimeout(() => {
+        setActiveNav();
+    }, 100);
+
+</script>
+
+</html>

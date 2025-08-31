@@ -30,7 +30,7 @@
     <script src="./javascript/index.js"></script>
     <script type="module">
 
-    import { Navbar, NavStyle, Footers, goHome, loginFunc, cartFunc, SideBar,typePlaceholder, setActiveNav } from './javascript/Navbar.js';
+    import { Navbar, NavStyle, Footers, goHome, goAbout,loginFunc, cartFunc, SideBar,typePlaceholder, setActiveNav } from './javascript/Navbar.js';
 
     const toTop = document.querySelector(".to-top");
 
@@ -53,6 +53,10 @@
     document.querySelector('.cartFunc').addEventListener('click', () => {
         cartFunc();
     });
+    document.querySelector('.aboutPage').addEventListener('click', () => {
+        goAbout();
+    });
+
     // side bar code start.
 
     const body = document.body;
@@ -96,6 +100,7 @@
             closeSidebar();
         }
     });
+    
     // side bar code end
 
 //Day-Night-mode-code

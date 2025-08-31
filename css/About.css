@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Playwrite+DK+Loopet:wght@100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+:root {
+  --sidebar-width: 300px;
+  /* tweak width here */
+  --blur-amount: 6px;
+  /* tweak blur strength here */
+  --overlay-bg: rgba(0, 0, 0, 0.25);
+  /* overlay tint */
+  --sidebar-bg: #111827;
+  /* slate-900 */
+  --sidebar-fg: #e5e7eb;
+  /* gray-200 */
+  --accent: #22d3ee;
+  /* cyan-400 */
+  --nav-text: hsl(120 75% 50%/1);
+  --background-color: #000;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-transform: capitalize;
+  font-family: "Roboto Mono", monospace;
+  /* font-optical-sizing: auto; */
+  font-style: normal;
+  /* font-weight: 700; */
+  cursor: pointer;
+}
+.img-bg {
+  margin-top: 30px;
+}
+.container {
+  text-align: center;
+  padding: 15px 0px;
+  font-size: 35px;
+  font-family: cursive;
+  font-weight: 500 !important;
+  color: #a58031;
+}
+.bg_img-text {
+  background-image: url(../utils/about-intro-bg.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 490px;
+  background-size: cover;
+  padding: 50px 0px;
+  text-align: center !important;
+}
+.content-info1 {
+  padding: 15px 0px;
+  color: rgb(51, 50, 50);
+  margin: auto;
+  width: 50%;
+  font-weight: 500 !important;
+}
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 50px 0px;
+}
+.content_1 {
+  border: 3px solid rgb(196, 193, 193);
+  display: grid;
+  justify-items: center;
+  width: 24%;
+  height: 160px;
+  border-left: none;
+  border-top: none;
+  border-bottom: none;
+}
+.content_2 {
+  border: 3px solid;
+  display: grid;
+  justify-items: center;
+  width: 24%;
+  height: 160px;
+  border-left: none;
+  border-top: none;
+  border-bottom: none;
+  border-right: none;
+}
+.span1 {
+  color: rgb(249, 69, 69);
+  font-size: 19px;
+}
+span {
+  font-size: 20px;
+}

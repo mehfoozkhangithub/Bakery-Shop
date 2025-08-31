@@ -43,7 +43,7 @@ export const Navbar = () => {
         
         <ul class="rout_page_name">
             <li class="homePage  nav-link">home</li>
-            <li class="nav-link">about</li>
+            <li class="aboutPage nav-link">about</li>
             <li class="loginFunc nav-link" >login</li>
             <li class="cartFunc nav-link">cart</li>
             <span class="cartDisplay"></span>
@@ -246,6 +246,10 @@ export const loginFunc = () => {
 
 export const goHome = () => {
   window.location.pathname = `${basePath}index.html`;
+};
+
+export const goAbout = () => {
+  window.location.pathname = `${basePath}pages/About_Page.html`;
 };
 
 export const cartFunc = () => {
