@@ -49,7 +49,6 @@
 }
 
 .card_div {
-  /* border: 1px solid  red; */
   width: 360px;
   height: 100%;
   border-bottom-right-radius: 15%;
@@ -79,11 +78,17 @@
 .count {
   margin: 0 10px;
 }
-.neg {
+.neg,
+.btns2 {
+  margin: 0 !important;
+  margin-right: 10px !important;
   background: red !important;
 }
 
-.pos {
+.pos,
+.btns3 {
+  margin: 0 !important;
+  margin-left: 10px !important;
   background: green !important;
 }
 
@@ -174,13 +179,23 @@
   transition: all 0.3s ease-out;
 }
 
-.btns {
+.btns,
+.btns1,
+.btns2,
+.btns3 {
   padding: 10px 20px;
   background: rgba(104, 104, 238, 0.726);
   color: #fff;
-  border: none;
   border-radius: 10px;
   margin: 10px 0;
+  font-size: 14px;
+  border: none;
+}
+
+.btns1 {
+  color: #000;
+  border: 3px solid #000;
+  padding: 11px 20px;
 }
 
 /* signup start */
@@ -734,31 +749,38 @@ body.dark .toggleBtn strong:nth-child(2) {
 }
 
 /* Modal box */
-.modal-content {
+.modal-content,
+.modal-content1 {
   background: #fff;
   padding: 20px;
-  width: 90%;
-  border-radius: 10px;
+  width: 55%;
+  border-radius: 25px;
   position: relative;
-  top: 50px;
-  left: 80px;
+  margin: auto;
+  top: 25px;
+  border: 5px solid;
+}
+
+.modal-content1 {
+  top: 20px;
 }
 
 .modalImage {
-  width: 50%;
+  width: 80%;
   height: 400px;
   margin: auto;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   display: block;
   object-fit: cover;
   border-radius: 15px;
+  border: 5px solid;
 }
 
 /* Close button */
 .close {
   position: absolute;
-  right: 13px;
-  top: 3px;
-  font-size: 30px;
+  right: 17px;
+  top: 1px;
+  font-size: 40px;
   cursor: pointer;
 }

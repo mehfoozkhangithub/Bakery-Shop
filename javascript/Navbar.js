@@ -271,6 +271,8 @@ export const setActiveNav = () => {
     // Match based on text or condition
     if (
       (currentPage === "index.html" && item.classList.contains("homePage")) ||
+      (currentPage === "about_page.html" &&
+        item.classList.contains("aboutPage")) ||
       (currentPage === "login.html" && item.classList.contains("loginFunc")) ||
       (currentPage === "cart.html" && item.classList.contains("cartFunc")) ||
       (currentPage === "about.html" && item.classList.contains("about"))

@@ -272,6 +272,7 @@ const detailsPage = async (id) => {
         <p><b>Description:</b> ${product.description}</p>
         <p><b>Price:</b> ₹${product.price}</p>
         <p><b>Rating:</b> ${product.rating.rate} Star</p>
+        <button onclick="addToCart(${product.id})" class="btns1">add</button>
       </div>
     `;
 

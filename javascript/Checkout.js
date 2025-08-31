@@ -98,7 +98,7 @@ const renderCheckout = (value) => {
     row.innerHTML = `
             <td><img src="${el.image}" class="checkoutImage"/> ${el.title}</td>
             <td>₹${el.price}</td>
-            <td>
+            <td class="flexDiv">
                 <button class="btns neg" onclick="decrementCount(${el.id}, ${
       el.count
     })">-</button>
@@ -146,7 +146,7 @@ const renderCheckout = (value) => {
                 <h5>congrats you're eligible for <b>free shiping</b> </h5>
                 <img src="../utils/delivery.png" alt="delivery" />
             </div>
-            <div class="checkout_btn"><button class="btns">Check out</button></div>
+            <div class="checkout_btn"><button class="btns" onclick="checkOut()">Check out</button></div>
     `;
   amountDiv_parent_2.classList.add("section_second_amount");
 
@@ -158,9 +158,9 @@ const renderCheckout = (value) => {
 
   const pagiDiv = document.createElement("div");
   pagiDiv.innerHTML = `
-  <button class="btns" id="decrementBtn">Prev</button>
+  <button class="btns2" id="decrementBtn">Prev</button>
 <span id="countPage">${pages} of ${lengthsOfAPI}</span>
-<button class="btns" id="incrementBtn">Next</button>
+<button class="btns3" id="incrementBtn">Next</button>
   `;
 
   amountDiv_main.prepend(pagiDiv);
@@ -250,3 +250,257 @@ const deleteToCart = async (id) => {
     console.log("🚀 ~ error:", error);
   }
 };
+
+const checkOut = () => {
+  // make modal div
+  const modal = document.createElement("div");
+  modal.classList.add("modal");
+  modal.style.display = "block"; // show it
+
+  // modal content
+  modal.innerHTML = `
+      <div class="modal-content1">
+        <span class="close">&times;</span>
+        <div class="container">
+
+    <form onsubmit="paymentFunc(event)">
+
+        <div class="row">
+
+            <div class="col">
+
+                <h3 class="title">billing address</h3>
+
+                <div class="inputBox">
+                    <label>full name :</label>
+                    <input type="text" id="user" placeholder="john deo">
+                    <span id="username_msg"></span>
+                </div>
+                <div class="inputBox">
+                    <label>Email :</label>
+                    <input type="email" id="email" placeholder="example@example.com">
+                    <span id="email_msg"></span>
+                </div>
+                <div class="inputBox">
+                     <label>Address :</label>
+                    <input type="text" id="address" placeholder="room - street - locality" required>
+                </div>
+                <div class="inputBox">
+                      <label>City :</label>
+                    <input type="text" id="city" placeholder="mumbai" required>
+                </div>
+
+                <div class="flex">
+                    <div class="inputBox">
+                          <label>State :</label>
+                        <input type="text" id="state" placeholder="india" required>
+                    </div>
+                    <div class="inputBox">
+                          <label>Zip Code :</label>
+                        <input type="text" id="zipCode" placeholder="123 456">
+                        <span id="zipCode_msg"></span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col">
+
+                <h3 class="title">payment</h3>
+
+                <div class="inputBox">
+                    <span>cards accepted :</span>
+                    <img src="../../images/card_img.png" alt="">
+                </div>
+                <div class="inputBox">
+                    <label>Name on card :</label>
+                    <input type="text" id="cardName" placeholder="mr. john deo">
+                    <span id="cardname_msg"></span>
+                </div>
+                <div class="inputBox">
+                    <label>Credit card number :</label>
+                    <input type="number" id="cardNumber" placeholder="1111-2222-3333-4444">
+                    <span id="cardnumber_msg"></span>
+                </div>
+                <div class="inputBox">
+                    <label>Exp month :</label>
+                    <input type="text" id="expMonth" placeholder="january">
+
+                </div>
+
+                <div class="flex">
+                    <div class="inputBox">
+                         <label>Exp year :</label>
+                        <input type="number" id="expYear" placeholder="2022">
+                    </div>
+                    <div class="inputBox">
+                         <label>CVV :</label>
+                        <input type="text" id="cardCvv" placeholder="1234">
+                        <span id="cardcvv_msg"></span>
+                    </div>
+                </div>
+
+            </div>
+    
+        </div>
+
+        <input type="submit" value="proceed to checkout" class="submit-btn">
+
+    </form>
+
+  </div>
+      </div>
+    `;
+
+  // add modal to body
+  document.body.appendChild(modal);
+
+  // close when clicking X
+  modal.querySelector(".close").onclick = () => modal.remove();
+
+  // close when clicking outside the box
+  modal.onclick = (event) => {
+    if (event.target === modal) {
+      modal.remove();
+    }
+  };
+};
+
+function paymentFunc(e) {
+  e.preventDefault();
+  let userName = document.getElementById("user").value;
+  let userEmail = document.getElementById("email").value;
+  let zipCode = document.getElementById("zipCode").value;
+  let cardName = document.getElementById("cardName").value;
+  let cardNumber = document.getElementById("cardNumber").value;
+  let cardCvv = document.getElementById("cardCvv").value;
+
+  // ==== user validation =====
+
+  if (userName == "") {
+    document.getElementById("username_msg").innerHTML =
+      "please fill the username field";
+    document.getElementById("username_msg").style.color = "gray";
+    return false;
+  } else if (userName.length <= 2 || userName.length > 20) {
+    document.getElementById("username_msg").innerHTML =
+      "please enter the length between 2 to 20";
+    document.getElementById("username_msg").style.color = "gray";
+    return false;
+  } else if (!isNaN(userName)) {
+    document.getElementById("username_msg").innerHTML =
+      "Only characters are allowed";
+    document.getElementById("username_msg").style.color = "gray";
+    return false;
+  } else {
+    document.getElementById("username_msg").innerHTML = "";
+  }
+
+  // ==== email Validation ====
+
+  if (userEmail == "") {
+    document.getElementById("email_msg").innerHTML =
+      " Please fill the email field";
+    document.getElementById("email_msg").style.color = "red";
+    return false;
+  } else if (userEmail.indexOf("@") <= 0) {
+    document.getElementById("email_msg").innerHTML = " @ Invalid Position.";
+    document.getElementById("email_msg").style.color = "red";
+    return false;
+  }
+  //length 19
+  else if (
+    userEmail.charAt(userEmail.length - 4) != "." &&
+    userEmail.charAt(userEmail.length - 3) != "."
+  ) {
+    document.getElementById("email_msg").innerHTML = " Invalid Position.";
+    document.getElementById("email_msg").style.color = "red";
+    return false;
+  } else {
+    document.getElementById("email_msg").innerHTML = "";
+  }
+
+  // ==== zip code Validation ====
+
+  if (zipCode == "") {
+    document.getElementById("zipCode_msg").innerHTML =
+      "please fill the zipcode field";
+    document.getElementById("zipCode_msg").style.color = "gray";
+    return false;
+  } else if (zipCode.length < 6 || zipCode.length > 6) {
+    document.getElementById("zipCode_msg").innerHTML =
+      "please enter the length of 6 ";
+    document.getElementById("zipCode_msg").style.color = "gray";
+    return false;
+  } else if (isNaN(zipCode)) {
+    document.getElementById("zipCode_msg").innerHTML =
+      "Only number are allowed";
+    document.getElementById("zipCode_msg").style.color = "gray";
+    return false;
+  } else {
+    document.getElementById("zipCode_msg").innerHTML = "";
+  }
+
+  // ==== name on card validation =====
+
+  if (cardName == "") {
+    document.getElementById("cardname_msg").innerHTML =
+      "please fill the cardname field";
+    document.getElementById("cardname_msg").style.color = "gray";
+    return false;
+  } else if (cardName.length <= 2 || cardName.length > 20) {
+    document.getElementById("cardname_msg").innerHTML =
+      "please enter the length between 2 to 20";
+    document.getElementById("cardname_msg").style.color = "gray";
+    return false;
+  } else if (!isNaN(cardName)) {
+    document.getElementById("cardname_msg").innerHTML =
+      "Only characters are allowed";
+    document.getElementById("cardname_msg").style.color = "gray";
+    return false;
+  } else {
+    document.getElementById("cardname_msg").innerHTML = "";
+  }
+
+  // ==== card number Validation ====
+
+  if (cardNumber == "") {
+    document.getElementById("cardnumber_msg").innerHTML =
+      "please fill the cardnumber field";
+    document.getElementById("cardnumber_msg").style.color = "gray";
+    return false;
+  } else if (cardNumber.length < 16 || cardNumber.length > 16) {
+    document.getElementById("cardnumber_msg").innerHTML =
+      "please enter the length of 16 ";
+    document.getElementById("cardnumber_msg").style.color = "gray";
+    return false;
+  } else if (isNaN(cardNumber)) {
+    document.getElementById("cardnumber_msg").innerHTML =
+      "Only number are allowed";
+    document.getElementById("cardnumber_msg").style.color = "gray";
+    return false;
+  } else {
+    document.getElementById("cardnumber_msg").innerHTML = "";
+  }
+
+  // ==== CVV Validation ====
+
+  if (cardCvv == "") {
+    document.getElementById("cardcvv_msg").innerHTML =
+      "please fill the cardnumber field";
+    document.getElementById("cardcvv_msg").style.color = "gray";
+    return false;
+  } else if (cardCvv.length < 4 || cardCvv.length > 4) {
+    document.getElementById("cardcvv_msg").innerHTML =
+      "please enter the length of 4 ";
+    document.getElementById("cardcvv_msg").style.color = "gray";
+    return false;
+  } else if (isNaN(cardCvv)) {
+    document.getElementById("cardcvv_msg").innerHTML =
+      "Only number are allowed";
+    document.getElementById("cardcvv_msg").style.color = "gray";
+    return false;
+  } else {
+    document.getElementById("cardcvv_msg").innerHTML = "";
+  }
+}
