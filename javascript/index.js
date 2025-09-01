@@ -292,3 +292,24 @@ const detailsPage = async (id) => {
     console.log("Error: ", error);
   }
 };
+
+const renderImageGallery = async () => {
+  try {
+    let res = await fetch(apiProducts);
+    let products = await res.json();
+
+    const gallery = document.querySelector("#imageGallery");
+    gallery.innerHTML = "";
+
+    products.forEach((el) => {
+      const img = document.createElement("img");
+      img.src = el.image;
+      img.alt = `product-${el.id}`;
+      gallery.appendChild(img);
+    });
+  } catch (error) {
+    console.error("Error loading gallery:", error);
+  }
+};
+
+renderImageGallery();
