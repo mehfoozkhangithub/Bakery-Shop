@@ -46,7 +46,7 @@
     <script defer src="../javascript/Signup.js"></script>
     <script type="module">
 
-    import { Navbar, NavStyle, Footers, goHome, loginFunc, cartFunc, SideBar, typePlaceholder,dayNight} from '../javascript/Navbar.js'
+    import { Navbar, NavStyle, Footers, goHome, loginFunc, cartFunc, SideBar, typePlaceholder, goAbout} from '../javascript/Navbar.js'
 
     document.querySelector('.header').innerHTML = Navbar() + SideBar();
    
@@ -67,6 +67,10 @@
     document.querySelector('.cartFunc').addEventListener('click', () => {
         cartFunc();
     });
+    document.querySelector('.aboutPage').addEventListener('click', () => {
+        goAbout();
+    });
+    
     // side bar code start 
 
     const body = document.body;

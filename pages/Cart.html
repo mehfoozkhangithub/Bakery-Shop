@@ -22,7 +22,7 @@
     <script src="../javascript/Cart.js"></script>
     <script type="module">
 
-    import { Navbar, NavStyle, Footers, goHome, loginFunc, cartFunc, SideBar, typePlaceholder, setActiveNav} from '../javascript/Navbar.js'
+    import { Navbar, NavStyle, Footers, goHome, loginFunc, cartFunc, SideBar, typePlaceholder, setActiveNav, goAbout} from '../javascript/Navbar.js'
 
     document.querySelector('.header').innerHTML = Navbar() + SideBar();
 
@@ -43,6 +43,9 @@
     });
     document.querySelector('.cartFunc').addEventListener('click', () => {
         cartFunc();
+    });
+    document.querySelector('.aboutPage').addEventListener('click', () => {
+        goAbout();
     });
     // side bar code start 
 
