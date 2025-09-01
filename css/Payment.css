@@ -85,3 +85,9 @@
 .container form .submit-btn:hover {
   background: #2ecc71;
 }
+
+.cardImg {
+  width: 250px;
+  aspect-ratio: 1/2;
+  object-fit: contain;
+}

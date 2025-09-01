@@ -3,6 +3,8 @@ const apiCheckout = `http://localhost:3000/cart`;
 let subTotal;
 let grandTotal;
 
+let selectChekoutIndex = [];
+
 let pages = 1;
 let pageLimits = 5;
 let lengthsOfAPI;
@@ -77,6 +79,9 @@ const renderCheckout = (value) => {
 
   const table = document.createElement("table");
   table.innerHTML = `
+  <button onclick="deselectFun()" id="deselectBtn">DeSelect</button>
+ <button onclick = "selectFun()" id="selectBtn">Select</button>
+  <button onclick="deleteFun(id)" id="deleteBtn">Delete</button>
         <thead>
             <tr>
                 <th>Item</th>
@@ -96,9 +101,13 @@ const renderCheckout = (value) => {
 
     const row = document.createElement("tr");
     row.innerHTML = `
-            <td><img src="${el.image}" class="checkoutImage"/> ${el.title}</td>
-            <td>₹${el.price}</td>
             <td class="flexDiv">
+    <input class="checkBox" type="checkbox" data-id="${
+      el.id
+    }" onclick="checkFunc(${el.id})" />
+            <img src="${el.image}" class="checkoutImage"/> ${el.title}</td>
+            <td>₹${el.price}</td>
+            <td>
                 <button class="btns neg" onclick="decrementCount(${el.id}, ${
       el.count
     })">-</button>
@@ -293,11 +302,11 @@ const checkOut = () => {
                 <div class="flex">
                     <div class="inputBox">
                           <label>State :</label>
-                        <input type="text" id="state" placeholder="india" required>
+                        <input type="text" id="state" placeholder="Maharashtra" required>
                     </div>
                     <div class="inputBox">
                           <label>Zip Code :</label>
-                        <input type="text" id="zipCode" placeholder="123 456">
+                        <input type="number" id="zipCode" placeholder="123 456">
                         <span id="zipCode_msg"></span>
                     </div>
                 </div>
@@ -310,7 +319,7 @@ const checkOut = () => {
 
                 <div class="inputBox">
                     <span>cards accepted :</span>
-                    <img src="../../images/card_img.png" alt="">
+                    <img src="../utils/card_img.png" alt="" class="cardImg">
                 </div>
                 <div class="inputBox">
                     <label>Name on card :</label>
@@ -324,18 +333,18 @@ const checkOut = () => {
                 </div>
                 <div class="inputBox">
                     <label>Exp month :</label>
-                    <input type="text" id="expMonth" placeholder="january">
+                    <input type="text" id="expMonth" placeholder="january" required>
 
                 </div>
 
                 <div class="flex">
                     <div class="inputBox">
                          <label>Exp year :</label>
-                        <input type="number" id="expYear" placeholder="2022">
+                        <input type="number" id="expYear" placeholder="2025" required>
                     </div>
                     <div class="inputBox">
                          <label>CVV :</label>
-                        <input type="text" id="cardCvv" placeholder="1234">
+                        <input type="text" id="cardCvv" placeholder="123">
                         <span id="cardcvv_msg"></span>
                     </div>
                 </div>
@@ -401,11 +410,10 @@ function paymentFunc(e) {
   if (userEmail == "") {
     document.getElementById("email_msg").innerHTML =
       " Please fill the email field";
-    document.getElementById("email_msg").style.color = "red";
+    document.getElementById("email_msg").style.color = "gray";
     return false;
   } else if (userEmail.indexOf("@") <= 0) {
     document.getElementById("email_msg").innerHTML = " @ Invalid Position.";
-    document.getElementById("email_msg").style.color = "red";
     return false;
   }
   //length 19
@@ -414,7 +422,6 @@ function paymentFunc(e) {
     userEmail.charAt(userEmail.length - 3) != "."
   ) {
     document.getElementById("email_msg").innerHTML = " Invalid Position.";
-    document.getElementById("email_msg").style.color = "red";
     return false;
   } else {
     document.getElementById("email_msg").innerHTML = "";
@@ -490,9 +497,9 @@ function paymentFunc(e) {
       "please fill the cardnumber field";
     document.getElementById("cardcvv_msg").style.color = "gray";
     return false;
-  } else if (cardCvv.length < 4 || cardCvv.length > 4) {
+  } else if (cardCvv.length < 3 || cardCvv.length > 3) {
     document.getElementById("cardcvv_msg").innerHTML =
-      "please enter the length of 4 ";
+      "please enter the length of 3 ";
     document.getElementById("cardcvv_msg").style.color = "gray";
     return false;
   } else if (isNaN(cardCvv)) {
@@ -503,4 +510,62 @@ function paymentFunc(e) {
   } else {
     document.getElementById("cardcvv_msg").innerHTML = "";
   }
+}
+
+// Select DeSelect & Delete Button
+
+function selectFun() {
+  let checkBox = document.querySelectorAll(".checkBox");
+  let checkBoxlen = checkBox.length;
+  console.log(checkBox[0].dataset.id, checkBoxlen);
+
+  for (let i = 0; i < checkBoxlen; i++) {
+    checkBox[i].checked = true;
+    selectChekoutIndex.push(+checkBox[i].dataset.id);
+  }
+  console.log(selectChekoutIndex);
+  toggle = true;
+  let selectBtn = document.querySelector("#selectBtn");
+  let deselectBtn = document.querySelector("#deselectBtn");
+
+  if (selectBtn) selectBtn.style.display = "none";
+  if (deselectBtn) deselectBtn.style.display = "inline-block";
+}
+
+function deselectFun() {
+  if (toggle === true) {
+    let checkBox = document.querySelectorAll(".checkBox");
+    let checkBoxlen = checkBox.length;
+
+    for (let i = 0; i < checkBoxlen; i++) {
+      checkBox[i].checked = false;
+    }
+    let selectBtn = document.querySelector("#selectBtn");
+    let deselectBtn = document.querySelector("#deselectBtn");
+
+    if (selectBtn) selectBtn.style.display = "inline-block";
+    if (deselectBtn) deselectBtn.style.display = "none";
+  }
+}
+
+function deleteFun() {
+  // console.log(selectChekoutIndex);
+  selectChekoutIndex = [...new Set(selectChekoutIndex)];
+
+  if (selectChekoutIndex.length === 0) {
+    alert("No items selected for deletion.");
+    return;
+  }
+  selectChekoutIndex.map(async (el) => {
+    console.log(el);
+
+    await fetch(`${apiCheckout}/${el}`, {
+      method: "DELETE",
+    });
+  });
+}
+
+function checkFunc(id) {
+  selectChekoutIndex.push(id);
+  console.log(selectChekoutIndex);
 }

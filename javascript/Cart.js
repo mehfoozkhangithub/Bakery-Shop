@@ -146,7 +146,6 @@ const detailsPage = async (id) => {
     // modal content
     modal.innerHTML = `
       <div class="modal-content">
-        <span class="close">&times;</span>
         <img src="${product.image}" alt="Product Image" class="modalImage">
         <h2>${product.title}</h2>
         <p><b>Category:</b> ${product.category}</p>
