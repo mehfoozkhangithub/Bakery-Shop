@@ -1,5 +1,6 @@
 const apiCheckout = `http://localhost:3000/cart`;
 
+let arr = [];
 let subTotal;
 let grandTotal;
 
