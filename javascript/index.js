@@ -65,7 +65,7 @@ const renderTheUI = (value) => {
             <div class="info" >
                 <h3 class="id">id : ${el.id}</h3>
                 <p class="category">category : ${el.category}</p>
-                <p class="price">price : ${el.price}</p>
+                <p class="price">price : ₹${el.price}</p>
                 <div class="rating">
                     <p>rate : ${el.rating.rate}</p>
                     </div>
@@ -248,6 +248,60 @@ const carosule = () => {
     });
   }, 1000);
 };
+
+// Filter By Category
+
+let allProductsGlobal = [];
+
+const fetchAllProducts = async () => {
+  try {
+    const res = await fetch(apiProducts);
+    allProductsGlobal = await res.json();
+  } catch (err) {
+    console.error("Error fetching all products:", err);
+  }
+};
+
+const filterFunc = async () => {
+  let filter = document.querySelector("#filter").value;
+
+  try {
+    let res = await fetch(apiProducts);
+    let data = await res.json();
+
+    // filter products by category
+    let filterArr = data.filter((el) => el.category === filter);
+
+    console.log("FilterArr: ", filterArr); // now works
+
+    renderTheUI(filterArr); // no need for await unless it's async
+  } catch (error) {
+    console.log("Error: ", error);
+  }
+};
+
+window.filterFunc = filterFunc;
+
+document.addEventListener("DOMContentLoaded", async () => {
+  paginationFetch(pageLimits, pages);
+  fetchAllProducts();
+  try {
+    let res = await fetch(apiProducts);
+    let data = await res.json();
+    let categories = [...new Set(data.map((el) => el.category))];
+
+    let filterSelect = document.querySelector("#filter");
+    filterSelect.innerHTML = `<option value="" class="filterOption">   Select Category   </option>`;
+    categories.forEach((cat) => {
+      let opt = document.createElement("option");
+      opt.value = cat;
+      opt.textContent = cat;
+      filterSelect.appendChild(opt);
+    });
+  } catch (error) {
+    console.log("Error populating categories:", error);
+  }
+});
 
 // PopUp Modal
 

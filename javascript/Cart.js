@@ -83,7 +83,7 @@ const cardRenderUI = (value) => {
                 <h3 class="id">id : ${el.id}</h3>
                 <p class="category">title : ${el.title}</p>
                 <p class="category">category : ${el.category}</p>
-                <p class="price">price : ${el.price}</p>
+                <p class="price">price : ₹${el.price}</p>
                 <p class="description">description : ${el.description}</p>
                 <div class="rating">
                     <p>rate : ${el.rating.rate}</p>

@@ -22,7 +22,7 @@
     <script src="../javascript/Cart.js"></script>
     <script type="module">
 
-    import { Navbar, NavStyle, Footers, goHome, loginFunc, cartFunc, SideBar, typePlaceholder, setActiveNav, goAbout} from '../javascript/Navbar.js'
+    import { Navbar, NavStyle, Footers, goHome, loginFunc, cartFunc, SideBar, typePlaceholder, setActiveNav, goAbout, sortLow, sortHigh} from '../javascript/Navbar.js'
 
     document.querySelector('.header').innerHTML = Navbar() + SideBar();
 
@@ -99,6 +99,51 @@
     setTimeout(() => {
         setActiveNav();
     }, 100);
+    
+document.addEventListener("DOMContentLoaded", () => {
+  const highBtn = document.querySelector("#filterHigh");
+  const lowBtn = document.querySelector("#filterLow");
+
+  function filterHigh(arr) {
+    return [...arr].sort((a, b) => b.price - a.price);
+  }
+
+  function filterLow(arr) {
+    return [...arr].sort((a, b) => a.price - b.price);
+  }
+
+  if (highBtn) {
+    highBtn.addEventListener("click", () => {
+      let filtered = filterHigh(allProductsGlobal);
+      renderTheUI(filtered);
+
+      // show span with close
+      activeFilter.innerHTML = `<span class="high">High to Low <span style="cursor:pointer;" id="closeFilter">✕</span></span>`;
+
+      // add close event
+      document.querySelector("#closeFilter").addEventListener("click", () => {
+        activeFilter.innerHTML = "";
+        renderTheUI(allProducts); // reset to normal products
+      });
+    });
+  }
+
+  if (lowBtn) {
+    lowBtn.addEventListener("click", () => {
+      let filtered = filterLow(allProductsGlobal);
+      renderTheUI(filtered);
+
+      // show span with close
+      activeFilter.innerHTML = `<span class="high">Low to High <span style="cursor:pointer;" id="closeFilter">✕</span></span>`;
+
+      // add close event
+      document.querySelector("#closeFilter").addEventListener("click", () => {
+        activeFilter.innerHTML = "";
+        renderTheUI(allProducts); // reset to normal products
+      });
+    });
+  }
+});
 </script>
 
 </html>

@@ -204,6 +204,17 @@ export const SideBar = () => {
             <button class="btn" id="closeSidebar" aria-label="Close sidebar">✕</button>
         </header>
         <a href="#"><span>🏠</span> Home</a>
+            <div class="slide">
+              <div class="div_filter">
+                <span><img src="../utils/Filter.svg"></img></span><h3>Filter</h3>
+              </div>
+                <div id="activeFilter"></div>
+                <ul class="filter">
+                    <li id="filterHigh">High To Low</li>
+                    <li id="filterLow">Low To High</li>
+                </ul>
+            </div>
+            <select name="Filter" id="filter" onchange="filterFunc()"></select>
         <a href="#"><span>📄</span> Docs</a>
         <a href="#"><span>📦</span> Products</a>
         <a href="#"><span>📞</span> Contact</a>
@@ -350,4 +361,44 @@ export const typePlaceholder = () => {
   i = 0;
   cursorVisible = true;
   typeAndBlink();
+};
+
+// High To Low Filter
+
+export const sortHigh = async () => {
+  try {
+    const res = await fetch(apiProducts);
+    const data = await res.json();
+
+    const sortedData = data.sort((a, b) => b.price - a.price);
+    await appendsFunc(sortedData);
+
+    const activeFilter = document.querySelector("#activeFilter");
+    activeFilter.innerHTML = `
+            <span>High To Low</span>
+            <button onclick="clearFilter()"><img src="./Utils/Close.svg"></button>
+            `;
+    document.querySelector(".slide").classList.remove("active");
+  } catch (error) {
+    console.log("Error While Sorting High To Low: ", error);
+  }
+};
+
+export const sortLow = async () => {
+  try {
+    const res = await fetch(apiProducts);
+    const data = await res.json();
+
+    const sortedData1 = data.sort((a, b) => a.price - b.price);
+    await appendsFunc(sortedData1);
+
+    const activeFilter = document.querySelector("#activeFilter");
+    activeFilter.innerHTML = `
+            <span>Low To High</span>
+            <button onclick="clearFilter()"><img src="./Utils/Close.svg"></button>
+            `;
+    document.querySelector(".slide").classList.remove("active");
+  } catch (error) {
+    console.log("Error While Sorting Low To High: ", error);
+  }
 };
