@@ -1,7 +1,7 @@
 const loginForm = async (e) => {
   e.preventDefault();
 
-  const apiLogin = `http://localhost:3000/register`;
+  const apiLogin = `https://bakery-shop-l4js.onrender.com/register`;
 
   const email = document.querySelector("#userEmail").value;
   const password = document.querySelector("#userPassword").value;

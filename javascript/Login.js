@@ -42,7 +42,7 @@ setTimeout(() => {
 const loginForm = async (e) => {
   e.preventDefault();
 
-  const apiLogin = `http://localhost:3000/login`;
+  const apiLogin = `https://bakery-shop-l4js.onrender.com/login`;
 
   const email = document.querySelector("#email").value;
   const password = document.querySelector("#pass").value;
@@ -148,21 +148,24 @@ const loginForm = async (e) => {
     sessionStorage.setItem("gender", gender);
 
     try {
-      await fetch(`http://localhost:3000/users/${data.user.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${data.accessToken}`,
-        },
-        body: JSON.stringify({ age, gender }),
-      });
+      await fetch(
+        `https://bakery-shop-l4js.onrender.com/users/${data.user.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${data.accessToken}`,
+          },
+          body: JSON.stringify({ age, gender }),
+        }
+      );
       console.log("✅ User updated with age & gender in db.json");
     } catch (err) {
       console.error("❌ Failed to update user with age/gender:", err);
     }
 
     try {
-      let ageApi = "http://localhost:3000/ageValid";
+      let ageApi = "https://bakery-shop-l4js.onrender.com/ageValid";
       let ageres = await fetch(ageApi);
       let ageData = await ageres.json();
 

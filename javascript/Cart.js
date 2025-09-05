@@ -30,7 +30,7 @@ const cardFetch = async () => {
   showSkeleton(itemsPerPage);
 
   try {
-    let res = await fetch("http://localhost:3000/cart");
+    let res = await fetch("https://bakery-shop-l4js.onrender.com/cart");
     let data = await res.json();
 
     cartLengths = data.length;
@@ -135,7 +135,7 @@ const goToCheckout = () => {
 const detailsPage = async (id) => {
   try {
     // get product details
-    let res = await fetch(`http://localhost:3000/cart/${id}`);
+    let res = await fetch(`https://bakery-shop-l4js.onrender.com/cart/${id}`);
     let product = await res.json();
 
     // make modal div

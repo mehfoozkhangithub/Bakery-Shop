@@ -1,4 +1,4 @@
-const apiCheckout = `http://localhost:3000/cart`;
+const apiCheckout = `https://bakery-shop-l4js.onrender.com/cart`;
 
 let subTotal;
 let grandTotal;

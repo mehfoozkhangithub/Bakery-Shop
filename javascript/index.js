@@ -1,5 +1,5 @@
-const apiProducts = `http://localhost:3000/product`;
-const apiCart = `http://localhost:3000/cart`;
+const apiProducts = `https://bakery-shop-l4js.onrender.com/product`;
+const apiCart = `https://bakery-shop-l4js.onrender.com/cart`;
 
 const token = sessionStorage.getItem("token");
 let path = window.location.pathname.split("/").pop();
@@ -159,7 +159,7 @@ pagiDiv.innerHTML = `
 `;
 
 const paginationFetch = async (limit = pageLimits, page = pages) => {
-  let paginationApi = `http://localhost:3000/product?_limit=${limit}&_page=${page}`;
+  let paginationApi = `https://bakery-shop-l4js.onrender.com/product?_limit=${limit}&_page=${page}`;
 
   showSkeleton(6); // Show skeletons while loading
   let cartDisplay = document.querySelector(".cartDisplay");
