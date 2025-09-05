@@ -77,6 +77,11 @@ const loginForm = async (e) => {
     });
     let data = await res.json();
 
+    if (!res.ok) {
+      document.getElementById("email_message").innerHTML = data;
+      return;
+    }
+
     if (data.accessToken) window.location = "Login.html";
   } catch (error) {
     console.log("🚀 ~ error:", error);

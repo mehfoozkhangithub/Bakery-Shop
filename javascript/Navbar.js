@@ -48,7 +48,7 @@ export const Navbar = () => {
             <li class="cartFunc nav-link">cart</li>
             <span class="cartDisplay"></span>
         </ul>
-        <img src="${avatar}" alt="profile-logo">
+        <img src="${avatar}" alt="profile-logo" onclick="logOut()">
         <div class="toggleBtn" id="toggleBtn">
             <strong>🌙</strong>
             <strong>☀️</strong>
@@ -402,3 +402,17 @@ export const sortLow = async () => {
     console.log("Error While Sorting Low To High: ", error);
   }
 };
+
+// Onclick LogOut Function
+
+export const logOut = () => {
+  const avatar = sessionStorage.getItem("Avatar");
+  if (avatar) {
+    sessionStorage.clear();
+    alert("You Have Been Loged Out");
+    const profileImg = "../utils/bearded_man-removebg-preview.png";
+    const avatarImg = document.querySelector('nav img[alt="profile-logo"]');
+    if (avatarImg) avatarImg.src = profileImg;
+  }
+};
+window.logOut = logOut;
